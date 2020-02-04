@@ -12,16 +12,17 @@ public class Cosidor extends Thread {
 
     @Override
     public void run() {
-
-        cistell.coser();
-//        tmp = (int) ((Math.random()*4000)+4000);
-        System.out.println(nombre + " coser...hay "+cistell.cant+"." );
-//        try {
-//            Thread.sleep(tmp);
-//        } catch (InterruptedException e) {
-//            e.printStackTrace();
-//        }
-        cistell.deixar();
-        System.out.println(nombre + " deixa a cistell...hay "+cistell.cant+"." );
+        for (;;){
+            if (cistell != null) cistell.coser();
+            tmp = (int) ((Math.random() * 4000) + 4000);
+            System.out.println(nombre + " esta coser...");
+            try {
+                Thread.sleep(tmp);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            if (cistell != null) cistell.deixar();
+            System.out.println(nombre + " deixa a cistell...hay " + cistell.cant + ".");
+        }
     }
 }

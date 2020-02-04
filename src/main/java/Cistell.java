@@ -1,26 +1,19 @@
 public class Cistell {
-
+    boolean cosert = false;
     int cantMax;
     int cant;
-    int cantJ;
+    String tipo;
 
-    public Cistell(int cantMax) {
+    public Cistell(int cantMax, String tipo) {
         this.cantMax = cantMax;
         this.cant=0;
-        this.cantJ=0;
-    }
-
-    public int getCant() {
-        return cant;
-    }
-
-    public void setCant(int cant) {
-        this.cant = cant;
+        this.tipo = tipo;
     }
 
     public synchronized void coser () {
         try {
-            while (cant == cantMax) wait();
+            while (cosert) wait();
+            cosert = false;
             notifyAll();
         } catch (InterruptedException e) {
             e.printStackTrace();
@@ -28,21 +21,23 @@ public class Cistell {
     }
 
     public synchronized void deixar() {
-        cant++;
-        notifyAll();
-    }
-    public synchronized void coserJ (Cistell cistellC, Cistell cistellM) {
         try {
-            while (cistellC.cant <= 0 && cistellM.cant <= 0) wait();
-            cistellC.setCant(cistellC.getCant()-1);
-            cistellM.setCant(cistellM.getCant()-1);
+            while (cant == cantMax) wait();
+            cant++;
             notifyAll();
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-    }
-    public synchronized void deixarJ() {
-        cantJ++;
         notifyAll();
+    }
+
+    public synchronized void agafar () {
+        try {
+            while (cant == 0 ) wait();
+            cant--;
+            notifyAll();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 }

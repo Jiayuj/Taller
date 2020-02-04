@@ -1,12 +1,9 @@
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
 
 public class Taller {
 
-    public static void main(String[] args) throws InterruptedException {
-        Cistell cistellM = new Cistell(8);
-        Cistell cistellC = new Cistell(8);
+    public static void main(String[] args)  {
+        Cistell cistellM = new Cistell(10, "M");
+        Cistell cistellC = new Cistell(5, "C");
 
         Cosidor cosidorM = new Cosidor("mm",cistellM);
         Cosidor cosidorC = new Cosidor("cc",cistellC);
